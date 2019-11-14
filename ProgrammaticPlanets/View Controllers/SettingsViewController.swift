@@ -15,16 +15,56 @@ class SettingsViewController: UIViewController {
     // MARK: - View Lifecycle
     
     override func viewDidLoad() {
+        setUpSubViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateViews()
+        
+    }
+    
+    func setUpSubViews() {
+        //Button
+        
+        let doneButton = UIButton(type: .system)
+        doneButton.translatesAutoresizingMaskIntoConstraints = false
+        doneButton.setTitle("Done", for: .normal)
+        doneButton.addTarget(self, action: #selector(done), for: .touchUpInside)
+        
+        view.addSubview(doneButton)
+        
+        let doneButtonTopConstraints = NSLayoutConstraint(item: doneButton, attribute: .top, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 20)
+        
+        let doneButtonTrailingConstraints = NSLayoutConstraint(item: doneButton, attribute: .trailing, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .trailing, multiplier: 1, constant: -20)
+        
+        NSLayoutConstraint.activate([doneButtonTopConstraints, doneButtonTrailingConstraints])
+        
+        //switch
+        
+        let shouldShowPlutoSwitch = UISwitch()
+        shouldShowPlutoSwitch.translatesAutoresizingMaskIntoConstraints = false
+        shouldShowPlutoSwitch.addTarget(self, action: #selector(changeShouldShowPluto(_:)), for: .valueChanged)
+        view.addSubview(shouldShowPlutoSwitch)
+        shouldShowPlutoSwitch.topAnchor.constraint(equalTo: doneButton.bottomAnchor, constant: 60).isActive = true
+        shouldShowPlutoSwitch.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        
+        self.shouldShowPlutoSwitch = shouldShowPlutoSwitch
+        
+        //Label
+        
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Is Pluto a planet?"
+        view.addSubview(label)
+        label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        label.trailingAnchor.constraint(equalTo: shouldShowPlutoSwitch.leadingAnchor, constant: -8).isActive = true
+        label.centerYAnchor.constraint(equalTo: shouldShowPlutoSwitch.centerYAnchor).isActive = true
     }
     
     // MARK: - Action Handlers
     
-    func changeShouldShowPluto(_ sender: UISwitch) {
+    @objc func changeShouldShowPluto(_ sender: UISwitch) {
         let userDefaults = UserDefaults.standard
         userDefaults.set(sender.isOn, forKey: .shouldShowPlutoKey)
     }
