@@ -30,15 +30,23 @@ class SettingsViewController: UIViewController {
         let doneButton = UIButton(type: .system)
         doneButton.translatesAutoresizingMaskIntoConstraints = false
         doneButton.setTitle("Done", for: .normal)
+        //action is what needs to happen when the button is triggered.
+        //touch up inside send to self view controller and calls done selector - same work as wiring up a button to an IBAction
         doneButton.addTarget(self, action: #selector(done), for: .touchUpInside)
-        
+        //adds the button to the view heierarchy.
         view.addSubview(doneButton)
-        
-        let doneButtonTopConstraints = NSLayoutConstraint(item: doneButton, attribute: .top, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 20)
-        
-        let doneButtonTrailingConstraints = NSLayoutConstraint(item: doneButton, attribute: .trailing, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .trailing, multiplier: 1, constant: -20)
-        
+        //Constraints for the button
+        let doneButtonTopConstraints = NSLayoutConstraint(item: doneButton,
+                                                          attribute: .top,
+                                                          relatedBy: .equal,
+                                                          toItem: view.safeAreaLayoutGuide,
+                                                          attribute: .top,
+                                                          multiplier: 1,
+                                                          constant: 20)
+        // 👇this is the same as the above👆
+        let doneButtonTrailingConstraints = doneButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
         NSLayoutConstraint.activate([doneButtonTopConstraints, doneButtonTrailingConstraints])
+        //instead i can use .isActive = true like below 👇
         
         //switch
         
@@ -48,7 +56,6 @@ class SettingsViewController: UIViewController {
         view.addSubview(shouldShowPlutoSwitch)
         shouldShowPlutoSwitch.topAnchor.constraint(equalTo: doneButton.bottomAnchor, constant: 60).isActive = true
         shouldShowPlutoSwitch.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
-        
         self.shouldShowPlutoSwitch = shouldShowPlutoSwitch
         
         //Label
