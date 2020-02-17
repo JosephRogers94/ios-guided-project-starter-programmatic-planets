@@ -13,21 +13,28 @@ class PlanetCollectionViewCell: UICollectionViewCell {
     private var imageView: UIImageView!
     private var nameLabel: UILabel!
     
+   
+    
     var planet: Planet! {
         didSet {
             updateViews()
         }
     }
-    
+    //runs when making everything in code completely
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpSubViews()
     }
-    
+    //when defining cell in storyboard but subviews are laid out programmatically.
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUpSubViews()
     }
+    
+    private func updateViews() {
+              imageView.image = planet.image
+              nameLabel.text = planet.name
+          }
     
     func setUpSubViews(){
         let imageView = UIImageView()
@@ -35,7 +42,7 @@ class PlanetCollectionViewCell: UICollectionViewCell {
         //what kind of scale is it?
         imageView.contentMode = .scaleAspectFit
         addSubview(imageView)
-        
+        //y
         NSLayoutConstraint(item: imageView,
                            attribute: .top,
                            relatedBy: .equal,
@@ -43,7 +50,7 @@ class PlanetCollectionViewCell: UICollectionViewCell {
                            attribute: .top,
                            multiplier: 1,
                            constant: 4).isActive = true
-        
+        //x
         NSLayoutConstraint(item: imageView,
                            attribute: .leading,
                            relatedBy: .equal,
@@ -51,7 +58,7 @@ class PlanetCollectionViewCell: UICollectionViewCell {
                            attribute: .leading,
                            multiplier: 1,
                            constant: 4).isActive = true
-        
+        //W
         NSLayoutConstraint(item: imageView,
                            attribute: .trailing,
                            relatedBy: .equal,
@@ -59,7 +66,7 @@ class PlanetCollectionViewCell: UICollectionViewCell {
                            attribute: .trailing,
                            multiplier: 1,
                            constant: -4).isActive = true
-        
+        //H
         NSLayoutConstraint(item: imageView,
                            attribute: .height,
                            relatedBy: .equal,
@@ -76,7 +83,6 @@ class PlanetCollectionViewCell: UICollectionViewCell {
         addSubview(label)
         
         label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 4).isActive = true
-        
             //these ones are assigning to the cell itself
         label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2).isActive = true
         label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2).isActive = true
@@ -84,10 +90,7 @@ class PlanetCollectionViewCell: UICollectionViewCell {
         self.nameLabel = label
     }
     
-    private func updateViews() {
-        imageView.image = planet.image
-        nameLabel.text = planet.name
-    }
+   
     
     //Constraints
     
