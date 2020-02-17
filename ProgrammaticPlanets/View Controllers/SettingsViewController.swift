@@ -30,14 +30,30 @@ class SettingsViewController: UIViewController {
         let doneButton = UIButton(type: .system)
         doneButton.translatesAutoresizingMaskIntoConstraints = false
         doneButton.setTitle("Done", for: .normal)
+        //action is what needs to happen when the button is triggered.
+        //touch up inside send to self view controller and calls done selector - same work as wiring up a button to an IBAction
         doneButton.addTarget(self, action: #selector(done), for: .touchUpInside)
-        
+        //adds the button to the view heierarchy.
         view.addSubview(doneButton)
+        //Constraints for the button
+        let doneButtonTopConstraints = NSLayoutConstraint(item: doneButton,
+                                                          attribute: .top,
+                                                          relatedBy: .equal,
+                                                          toItem: view.safeAreaLayoutGuide,
+                                                          attribute: .top,
+                                                          multiplier: 1,
+                                                          constant: 20)
         
-        let doneButtonTopConstraints = NSLayoutConstraint(item: doneButton, attribute: .top, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 20)
-        
-        let doneButtonTrailingConstraints = NSLayoutConstraint(item: doneButton, attribute: .trailing, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .trailing, multiplier: 1, constant: -20)
-        
+//        let doneButtonTrailingConstraints = NSLayoutConstraint(item: doneButton,
+//                                                               attribute: .trailing,
+//                                                               relatedBy: .equal,
+//                                                               toItem: view.safeAreaLayoutGuide,
+//                                                               attribute: .trailing,
+//                                                               multiplier: 1,
+//                                                               constant: -20)
+        // 👇this is the same as the above👆
+        let doneButtonTrailingConstraints = doneButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
+        //this activates the constraints.
         NSLayoutConstraint.activate([doneButtonTopConstraints, doneButtonTrailingConstraints])
         
         //switch
