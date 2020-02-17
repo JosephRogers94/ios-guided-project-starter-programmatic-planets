@@ -43,18 +43,10 @@ class SettingsViewController: UIViewController {
                                                           attribute: .top,
                                                           multiplier: 1,
                                                           constant: 20)
-        
-//        let doneButtonTrailingConstraints = NSLayoutConstraint(item: doneButton,
-//                                                               attribute: .trailing,
-//                                                               relatedBy: .equal,
-//                                                               toItem: view.safeAreaLayoutGuide,
-//                                                               attribute: .trailing,
-//                                                               multiplier: 1,
-//                                                               constant: -20)
         // 👇this is the same as the above👆
         let doneButtonTrailingConstraints = doneButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
-        //this activates the constraints.
         NSLayoutConstraint.activate([doneButtonTopConstraints, doneButtonTrailingConstraints])
+        //instead i can use .isActive = true like below 👇
         
         //switch
         
@@ -64,7 +56,6 @@ class SettingsViewController: UIViewController {
         view.addSubview(shouldShowPlutoSwitch)
         shouldShowPlutoSwitch.topAnchor.constraint(equalTo: doneButton.bottomAnchor, constant: 60).isActive = true
         shouldShowPlutoSwitch.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
-        
         self.shouldShowPlutoSwitch = shouldShowPlutoSwitch
         
         //Label
